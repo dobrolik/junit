@@ -6,17 +6,27 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AccountPage extends BaseActions{
 
-    public static final By ACCOUNT_HEADER = By.cssSelector(".page-heading");
+    private static final By PAGE_HEADER = By.cssSelector(".page-heading");
 
-    public boolean isAccountPageHeaderPresent() {
-        return isElementPresent(ACCOUNT_HEADER);
-    }
-
-    public String getAccountPageHeaderText() {
-        return driver.findElement(ACCOUNT_HEADER).getText();
-    }
+    private Header header;
 
     public AccountPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
+        header = new Header(driver, wait);
     }
+
+    public boolean isPageHeaderPresent() {
+        return isElementPresent(PAGE_HEADER);
+    }
+
+    public String getPageHeaderText() {
+        return driver.findElement(PAGE_HEADER).getText();
+    }
+
+    public void logout() { header.signOut(); }
+
+    public void selectShoppingCategory(Header.ShoppingCategory category) {
+        header.openCategory(category);
+    }
+
 }

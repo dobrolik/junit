@@ -5,10 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.geekbrains.nvgostev.junit.pom.AccountPage;
-import ru.geekbrains.nvgostev.junit.pom.MainPage;
-import ru.geekbrains.nvgostev.junit.pom.RegistrationPage;
-import ru.geekbrains.nvgostev.junit.pom.SignInPage;
+import ru.geekbrains.nvgostev.junit.pom.*;
 
 public abstract class BaseUITest {
     protected WebDriver driver;
@@ -18,6 +15,9 @@ public abstract class BaseUITest {
     protected SignInPage signInPage;
     protected RegistrationPage registrationPage;
     protected AccountPage accountPage;
+    protected ShopPage shopPage;
+    protected ShoppingCart shoppingCart;
+
 
     @BeforeEach
     public void init() {
@@ -28,6 +28,8 @@ public abstract class BaseUITest {
         signInPage = new SignInPage(driver, wait);
         registrationPage = new RegistrationPage(driver, wait);
         accountPage = new AccountPage(driver, wait);
+        shopPage = new ShopPage(driver, wait);
+        shoppingCart = new ShoppingCart(driver, wait);
     }
 
     @AfterEach
