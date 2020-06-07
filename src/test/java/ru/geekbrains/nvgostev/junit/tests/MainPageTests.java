@@ -1,17 +1,21 @@
 package ru.geekbrains.nvgostev.junit.tests;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
+import org.testng.annotations.Test;
+import ru.geekbrains.nvgostev.junit.pom.MainPage;
+import ru.geekbrains.nvgostev.junit.pom.SignInPage;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class MainPageTests extends BaseUITest {
 
-    @Disabled
     @Test
     public void goToSignInPageTest() {
-        mainPage.home();
-        mainPage.goToSignIn();
-        Assertions.assertTrue(signInPage.isPageHeaderPresent());
-        Assertions.assertEquals("authentication", signInPage.getPageHeaderText().toLowerCase());
+        SignInPage signInPage = new MainPage(getDriver(), getWait())
+                .home()
+                .getHeader().sigIn();
+        assertThat("Page header is presented", signInPage.isPageHeaderPresent(), equalTo(true));
+        assertThat("Page header text is correct", signInPage.getPageHeaderText(), equalToIgnoringCase("authentication"));
     }
 }

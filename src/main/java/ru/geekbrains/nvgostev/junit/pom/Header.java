@@ -18,27 +18,30 @@ public class Header extends BaseActions{
         super(driver, wait);
     }
 
-    public void sigIn() {
+    public SignInPage sigIn() {
         if (isElementPresent(SIGN_IN_BTN)) {
             click(SIGN_IN_BTN);
+            return new SignInPage(driver, wait);
         } else {
             throw new RuntimeException("No sign-in button. Possible reason: already signed in");
         }
     }
 
-    public void signOut() {
+    public SignInPage signOut() {
         if (isElementPresent(SIGN_OUT_BTN)) {
             click(SIGN_OUT_BTN);
+            return new SignInPage(driver, wait);
         } else {
             throw new RuntimeException("No sign-out button. Possible reason: not signed in");
         }
     }
 
-    public void viewCart() {
+    public ShoppingCart viewCart() {
         click(VIEW_CART_BTN);
+        return new ShoppingCart(driver, wait);
     }
 
-    public void openCategory(ShoppingCategory category) {
+    public ShopPage openCategory(ShoppingCategory category) {
         switch (category) {
             case WOMEN:
                 click(WOMEN_BTN);
@@ -49,7 +52,7 @@ public class Header extends BaseActions{
             case T_SHIRTS:
                 click(T_SHIRTS_BTN);
                 break;
-        }
+        } return new ShopPage(driver, wait);
     }
 
     public enum ShoppingCategory {

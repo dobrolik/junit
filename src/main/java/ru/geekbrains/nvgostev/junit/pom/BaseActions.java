@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class BaseActions {
     WebDriver driver;
     WebDriverWait wait;
+    
     public BaseActions(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;

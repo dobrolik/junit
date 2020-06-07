@@ -4,9 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ShoppingCart extends BaseActions {
+public class ShoppingCart extends ContentPage {
 
-    private static final By PAGE_HEADER = By.cssSelector(".page-heading");
     private static final By CART_ITEMS_LIST = By.cssSelector("#order-detail-content > table > tbody > tr ");
     private static final By CART_ITEM_NAME = By.cssSelector(".product-name");
     private static final By CART_ITEM_QTY = By.cssSelector("[class=\"cart_quantity_input form-control grey\"]");
@@ -37,14 +36,6 @@ public class ShoppingCart extends BaseActions {
         currentStep = CheckoutStep.SUMMARY;
     }
 
-    public boolean isPageHeaderPresent() {
-        return isElementPresent(PAGE_HEADER);
-    }
-
-    public String getPageHeaderText() {
-        return driver.findElement(PAGE_HEADER).getText();
-    }
-
     public boolean isItemInCart(String itemName) {
         return findElement(CART_ITEMS_LIST, CART_ITEM_NAME, itemName).isDisplayed();
     }
@@ -56,7 +47,7 @@ public class ShoppingCart extends BaseActions {
         );
     }
 
-    public void proceedToNextStep() {
+    public ShoppingCart proceedToNextStep() {
         switch (currentStep) {
             case SUMMARY:
                 click(PROCEED_TO_ADDR_BTN);
@@ -73,17 +64,19 @@ public class ShoppingCart extends BaseActions {
             default:
                 throw new IllegalStateException("Cannot proceed to next step from current: " + currentStep);
         }
+        return this;
     }
 
-    public void agreeTermsOfService() {
+    public ShoppingCart agreeTermsOfService() {
         if (currentStep == CheckoutStep.SHIPPING) {
             driver.findElement(AGREE_TERMS_CHECKBOX).click();
         } else {
             throw new RuntimeException("Cannot agree terms of service on current step: " + currentStep);
         }
+        return this;
     }
 
-    public void selectPaymentMethod(PaymentMethod paymentMethod) {
+    public ShoppingCart selectPaymentMethod(PaymentMethod paymentMethod) {
         if (currentStep != CheckoutStep.PAYMENT) {
             throw new RuntimeException("Cannot select payment method on current step: " + currentStep);
         }
@@ -95,6 +88,7 @@ public class ShoppingCart extends BaseActions {
                 click(CHECK_PAY_BTN);
                 break;
         }
+        return this;
     }
 
     public String getPaymentMethodText() {
@@ -104,7 +98,7 @@ public class ShoppingCart extends BaseActions {
         return driver.findElement(PAYMENT_METHOD).getText();
     }
 
-    public void confirmOrder() {
+    public ShoppingCart confirmOrder() {
         if (currentStep != CheckoutStep.PAYMENT) {
             throw new RuntimeException("Cannot confirm order on current step: " + currentStep);
         }
@@ -112,6 +106,7 @@ public class ShoppingCart extends BaseActions {
             throw new RuntimeException("Cannot confirm order. Possible reason: payment method not selected");
         }
         click(CONFIRM_ORDER_BTN);
+        return this;
     }
 
     public boolean isAlertSuccessPresented() {
