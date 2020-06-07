@@ -90,3 +90,4 @@ public class RegistrationTests extends BaseUITest {
             assertThat("Alert text contains", alert, containsString(expectedAlert));
         }
     }
+}
