@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="http://automationpractice.com autotests">
+    <parameter name="browser" value="chrome"/>
+    <test name="MainPage tests" >
+        <classes>
+            <class name="ru.geekbrains.nvgostev.junit.tests.MainPageTests" />
+        </classes>
+    </test>
+
+    <test name="Registration tests" verbose="1">
+        <classes>
+            <class name="ru.geekbrains.nvgostev.junit.tests.RegistrationTests"/>
+        </classes>
+    </test>
+
+    <test name="Sign in and Add to cart tests" verbose="1">
+        <classes>
+            <class name="ru.geekbrains.nvgostev.junit.tests.AddToCartTest"/>
+        </classes>
+    </test>
+
+    <test name="Checkout order tests" verbose="1">
+        <classes>
+            <class name="ru.geekbrains.nvgostev.junit.tests.OrderTest"/>
+        </classes>
+    </test>
+</suite>
